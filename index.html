@@ -26,25 +26,28 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background-image: url('images/cover_monastery.jpg');
+            /* ВАЖНО: Убран префикс images/ */
+            background-image: url('cover_monastery.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
+        /* Скрыто, так как видео больше нет */
         .video-background {
             display: none;
         }
 
-        /* ИЗМЕНЕНИЕ 1: Усилено затемнение до 75% */
+        /* Затемнение фона */
         .video-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.75); 
-            z-index: 0; /* Под текстом, но над картинкой */
+            background: rgba(0, 0, 0, 0.75); /* 75% затемнения */
+            z-index: 0;
         }
 
         .cover-content {
@@ -53,27 +56,25 @@
             z-index: 1;
             padding: 2rem;
             max-width: 1000px;
-            position: relative; /* Чтобы z-index работал корректно */
+            position: relative;
         }
 
-        /* ИЗМЕНЕНИЕ 2: Добавлена тень к заголовку */
         .cover-content h1 {
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
             font-weight: 300;
             letter-spacing: 4px;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9); /* Жёсткая тень для контраста */
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
         }
 
         .cover-content .subtitle {
             font-size: 1.6rem;
             margin-bottom: 1.5rem;
             font-weight: 300;
-            opacity: 1; /* Увеличена непрозрачность */
+            opacity: 1;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
-        /* ИЗМЕНЕНИЕ 3: Добавлена тень к описанию */
         .cover-content .description {
             font-size: 1.3rem;
             line-height: 1.9;
@@ -254,6 +255,7 @@
         .final-cover {
             position: relative;
             height: 60vh;
+            /* ВАЖНО: Убран префикс images/ */
             background-image: url('final_cover.jpg');
             background-size: cover;
             background-position: center;
@@ -401,8 +403,8 @@
 <body>
 
     <!-- Section 1: Cover with IMAGE background -->
-    <section class="content-section">
-        <div class="gallery-container"></div>
+    <section class="cover-video">
+        <div class="video-overlay"></div>
         <div class="cover-content">
             <h1>СВЯТО-ТРОИЦКИЙ МОНАСТЫРЬ</h1>
             <div class="subtitle">Древнейшая обитель Сибири</div>
@@ -441,6 +443,7 @@
         <div class="gallery-container">
             <h2 class="section-title">Архитектурный ансамбль</h2>
             <div class="gallery-collage">
+                <!-- Убран images/ из всех ссылок -->
                 <div class="gallery-item span-2" onclick="openLightbox(this)">
                     <img src="gallery1_trinity_cathedral.jpg" alt="Троицкий собор">
                     <div class="caption">Троицкий собор — главный храм монастыря</div>
@@ -508,6 +511,7 @@
         <div class="gallery-container">
             <h2 class="section-title">Исторические виды</h2>
             <div class="gallery-collage">
+                <!-- Убран images/ из всех ссылок -->
                 <div class="gallery-item" onclick="openLightbox(this)">
                     <img src="gallery5_old_photo_1912.jpg" alt="Фото 1912 года">
                     <div class="caption">Монастырь на фотографии начала XX века</div>
@@ -564,6 +568,7 @@
         <div class="gallery-container">
             <h2 class="section-title">Современный облик</h2>
             <div class="gallery-collage">
+                <!-- Убран images/ из всех ссылок -->
                 <div class="gallery-item span-2" onclick="openLightbox(this)">
                     <img src="gallery8_main_gate.jpg" alt="Святые ворота">
                     <div class="caption">Восстановленные святые ворота</div>
