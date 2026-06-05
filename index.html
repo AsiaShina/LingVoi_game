@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Свято-Троицкий монастырь - Тюмень</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background-color: #fafafa;
+        }
+
+        /* Section 1: Cover with video background */
+        .cover-video {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: -1;
+        }
+
+        .cover-content {
+            text-align: center;
+            color: white;
+            z-index: 1;
+            padding: 2rem;
+            max-width: 1000px;
+        }
+
+        .cover-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+            font-weight: 300;
+            letter-spacing: 4px;
+        }
+
+        .cover-content .subtitle {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+
+        .cover-content .description {
+            font-size: 1.3rem;
+            line-height: 1.9;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Common section styles - COMPACT */
+        .content-section {
+            padding: 2rem 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 300;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #8b4513, #d4af37);
+        }
+
+        /* White card sections - COMPACT */
+        .white-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: #444;
+            text-align: justify;
+        }
+
+        .intro-text p {
+            margin-bottom: 1rem;
+        }
+
+        .intro-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* History text */
+        .history-text {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: #444;
+            text-align: justify;
+        }
+
+        .history-text p {
+            margin-bottom: 1rem;
+        }
+
+        /* Gallery collage - COMPACT */
+        .gallery-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            margin-bottom: 1.5rem;
+        }
+
+        .gallery-collage {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 250px);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            color: white;
+            padding: 1.5rem 0.8rem 0.8rem;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .caption {
+            opacity: 1;
+        }
+
+        /* Span classes for collage layout */
+        .span-2 {
+            grid-column: span 2;
+        }
+
+        .span-row-2 {
+            grid-row: span 2;
+        }
+
+        /* Interesting fact section - COMPACT */
+        .fact-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+        }
+
+        .fact-section .section-title {
+            color: white;
+        }
+
+        .fact-section .section-title::after {
+            background: rgba(255,255,255,0.6);
+        }
+
+        .fact-content {
+            font-size: 1.5rem;
+            font-style: italic;
+            max-width: 900px;
+            margin: 1.5rem auto;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .fact-author {
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Final cover */
+        .final-cover {
+            position: relative;
+            height: 60vh;
+            background-image: url('imagesfinal_cover.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0;
+        }
+
+        .final-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .final-cover-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+
+        .final-cover-content h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .final-cover-content p {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .lightbox-close:hover {
+            color: #d4af37;
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .gallery-collage {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+            }
+            
+            .span-2 {
+                grid-column: span 2;
+            }
+            
+            .span-row-2 {
+                grid-row: span 1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .cover-content h1 {
+                font-size: 2rem;
+            }
+            
+            .cover-content .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .white-card,
+            .gallery-container {
+                padding: 1.5rem;
+            }
+            
+            .gallery-collage {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(4, 250px);
+            }
+            
+            .span-2 {
+                grid-column: span 1;
+            }
+            
+            .fact-content {
+                font-size: 1.2rem;
+            }
+            
+            .final-cover-content h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Section 1: Cover with video background -->
+    <section class="cover-video">
+        <video class="video-background" autoplay muted loop playsinline>
+            <source src="videosmonastery_intro.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+        <div class="cover-content">
+            <h1>СВЯТО-ТРОИЦКИЙ МОНАСТЫРЬ</h1>
+            <div class="subtitle">Древнейшая обитель Сибири</div>
+            <div class="description">
+                Один из старейших архитектурных памятников Тюмени, 
+                основанный в XVII веке на высоком правом берегу реки Туры. 
+                Шедевр сибирского барокко и духовный центр Зауралья.
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Short text about the landmark -->
+    <section class="content-section">
+        <div class="white-card">
+            <h2 class="section-title">О монастыре</h2>
+            <div class="intro-text">
+                <p>
+                    Свято-Троицкий мужской монастырь — это не просто архитектурный ансамбль, 
+                    а живая история освоения Сибири. Расположенный в самом сердце Тюмени, 
+                    монастырь вот уже более четырёх столетий хранит духовные традиции 
+                    православия и служит свидетельством глубокой веры первых поселенцев 
+                    зауральских земель.
+                </p>
+                <p>
+                    Основанный иноком Нифонтом из Казанской Раифской пустыни, монастырь стал 
+                    первым каменным строением в Сибири и важным миссионерским центром, 
+                    откуда православная вера распространялась по бескрайним просторам 
+                    Зауралья.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Gallery with photos -->
+    <section class="content-section">
+        <div class="gallery-container">
+            <h2 class="section-title">Архитектурный ансамбль</h2>
+            <div class="gallery-collage">
+                <div class="gallery-item span-2" onclick="openLightbox(this)">
+                    <img src="imagesgallery1_trinity_cathedral.jpg" alt="Троицкий собор">
+                    <div class="caption">Троицкий собор — главный храм монастыря</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="imagesgallery2_bell_tower.jpg" alt="Колокольня">
+                    <div class="caption">Изящная колокольня в стиле сибирского барокко</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="imagesgallery3_monastery_walls.jpg" alt="Стены монастыря">
+                    <div class="caption">Монастырские стены и башни</div>
+                </div>
+                <div class="gallery-item span-2" onclick="openLightbox(this)">
+                    <img src="imagesgallery4_iconostasis.jpg" alt="Иконостас">
+                    <div class="caption">Великолепный резной иконостас</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: History part 1 -->
+    <section class="content-section">
+        <div class="white-card">
+            <h2 class="section-title">История монастыря</h2>
+            <div class="history-text">
+                <p>
+                    История Свято-Троицкого монастыря начинается в начале XVII века, когда 
+                    монах Нифонт из Казанской Раифской пустыни, долго странствовавший по 
+                    уральским и зауральским землям, основал на высоком берегу реки Туры 
+                    Преображенский монастырь, позже переименованный в Свято-Троицкий.
+                </p>
+                <p>
+                    Уже в первые десятилетия существования здесь были построены деревянные 
+                    церкви, кельи для братии и хозяйственные постройки. Монастырь быстро 
+                    стал важным духовным центром, привлекая паломников и способствуя 
+                    распространению православия среди местного населения.
+                </p>
+                <p>
+                    Начало XVIII века стало переломным моментом в истории обители. По 
+                    благословению святителя Филофея, первого митрополита Сибирского, 
+                    началось масштабное каменное строительство. Несмотря на царский запрет 
+                    на каменное строительство в регионах, монастырь получил особое 
+                    разрешение, что свидетельствует о его значимости.
+                </p>
+                <p>
+                    В период активной реконструкции под руководством митрополита Филофея 
+                    монастырь приобрёл свой уникальный облик в стиле сибирского барокко, 
+                    соединившего традиции украинского зодчества и местные архитектурные 
+                    особенности. Именно тогда были возведены величественный Троицкий собор 
+                    и изящная колокольня, которые и сегодня определяют силуэт монастырского 
+                    комплекса.
+                </p>
+                <p>
+                    На протяжении всего XVIII века монастырь продолжал развиваться как 
+                    духовный и просветительский центр. При обители была открыта первая 
+                    школа в Тюмени, что подчёркивает важную роль монастыря в образовании 
+                    и культуре региона.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Gallery with photos -->
+    <section class="content-section">
+        <div class="gallery-container">
+            <h2 class="section-title">Исторические виды</h2>
+            <div class="gallery-collage">
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="imagesgallery5_old_photo_1912.jpg" alt="Фото 1912 года">
+                    <div class="caption">Монастырь на фотографии начала XX века</div>
+                </div>
+                <div class="gallery-item span-2" onclick="openLightbox(this)">
+                    <img src="imagesgallery6_prokudin_gorsky.gif" alt="Фото Прокудина-Горского">
+                    <div class="caption">Цветная фотография Прокудина-Горского</div>
+                </div>
+                <div class="gallery-item span-2" onclick="openLightbox(this)">
+                    <img src="imagesgallery7_aerial_view.jpg" alt="Вид с воздуха">
+                    <div class="caption">Панорамный вид на монастырский комплекс</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: History part 2 -->
+    <section class="content-section">
+        <div class="white-card">
+            <h2 class="section-title">Испытания и возрождение</h2>
+            <div class="history-text">
+                <p>
+                    XIX век стал периодом расцвета монастыря. Обитель превратилась в 
+                    важнейший духовный и культурный центр Сибири, куда стекались паломники 
+                    со всех концов России. Монастырь процветал, привлекая новых насельников 
+                    и расширяя свою хозяйственную деятельность.
+                </p>
+                <p>
+                    Однако с приходом к власти большевиков началась чёрная полоса в истории 
+                    обители. Гонения на церковь привели к тому, что монастырь был официально 
+                    упразднён и закрыт. Братия была распущена, богослужения прекращены, а 
+                    многие здания перестроены под хозяйственные нужды или разрушены.
+                </p>
+                <p>
+                    Несмотря на тяжёлые испытания, монастырский комплекс сохранился и в 
+                    середине XX века был взят под государственную охрану как памятник 
+                    архитектуры федерального значения. Это позволило сохранить уникальные 
+                    архитектурные памятники для будущих поколений.
+                </p>
+                <p>
+                    Возрождение монастыря началось в середине 1990-х годов, когда обитель 
+                    была возвращена Русской Православной Церкви. С этого момента началась 
+                    масштабная реставрация и духовное возрождение монастыря. Были 
+                    восстановлены храмы, колокольня, монастырские стены. Сегодня 
+                    Свято-Троицкий монастырь вновь действует как мужская обитель, 
+                    принимая паломников и продолжая свою многовековую миссию.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 7: Gallery with photos -->
+    <section class="content-section">
+        <div class="gallery-container">
+            <h2 class="section-title">Современный облик</h2>
+            <div class="gallery-collage">
+                <div class="gallery-item span-2" onclick="openLightbox(this)">
+                    <img src="imagesgallery8_main_gate.jpg" alt="Святые ворота">
+                    <div class="caption">Восстановленные святые ворота</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="imagesgallery9_interior.jpg" alt="Интерьер собора">
+                    <div class="caption">Внутреннее убранство Троицкого собора</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="imagesgallery10_ceremony.jpg" alt="Богослужение">
+                    <div class="caption">Праздничное богослужение</div>
+                </div>
+                <div class="gallery-item span-2" onclick="openLightbox(this)">
+                    <img src="imagesgallery11_garden.jpg" alt="Монастырский сад">
+                    <div class="caption">Тихий монастырский сад</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 8: Interesting fact -->
+    <section class="content-section">
+        <div class="fact-section">
+            <h2 class="section-title">Интересный факт</h2>
+            <div class="fact-content">
+                «Свято-Троицкий монастырь — первый каменный храм в Сибири, 
+                где уникальным образом соединились традиции украинского барокко 
+                и сибирского зодчества, создав неповторимый архитектурный стиль, 
+                ставший символом духовного освоения бескрайних просторов Зауралья»
+            </div>
+            <div class="fact-author">
+                — Из истории сибирской архитектуры
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 9: Final cover -->
+    <section class="final-cover">
+        <div class="final-cover-content">
+            <h2>Свято-Троицкий монастырь</h2>
+            <p>
+                Место силы и духовности<br>
+                в сердце древней Тюмени
+            </p>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+        <span class="lightbox-close">&times;</span>
+        <img src="" alt="" id="lightbox-img">
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+
+    <script>
+        function openLightbox(element) {
+            const img = element.querySelector('img');
+            const caption = element.querySelector('.caption');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightboxCaption.textContent = caption.textContent;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox(event) {
+            if (event.target.classList.contains('lightbox') || 
+                event.target.classList.contains('lightbox-close')) {
+                const lightbox = document.getElementById('lightbox');
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close lightbox on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const lightbox = document.getElementById('lightbox');
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+
+</body>
+</html>
